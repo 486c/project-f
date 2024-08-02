@@ -1,0 +1,29 @@
+* {
+  font-family: monospace;
+}
+
+:root {
+  background: #1A0128;
+  color: #EAD7EA;
+  font-size: 20px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#app {
+  display: contents;
+}
+
+#portal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  pointer-events: none;
+  overflow: hidden;
+}

@@ -1,0 +1,6 @@
+/target
+/files
+/static
+.env
+*.db
+*.sqlite

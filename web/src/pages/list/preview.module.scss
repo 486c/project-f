@@ -1,0 +1,12 @@
+.preview {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+
+  // position-try-fallbacks: flip-block, flip-inline;
+
+  img {
+    max-width: min(450px, 100%);
+    max-height: min(700px, 100%);
+  }
+}

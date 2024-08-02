@@ -1,0 +1,42 @@
+.pagination {
+  display: flex;
+  gap: 10px;
+}
+
+.files {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.file {
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background: #4D3E51;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  
+  font-size: 15px;
+}
+
+.right {
+  justify-content: space-between;
+  align-items: end;
+}
+
+.preview {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  max-width: 200px;
+}

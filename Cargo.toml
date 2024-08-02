@@ -1,0 +1,21 @@
+[package]
+name = "project-f"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7.5", features = ["multipart"] }
+crc32fast = "1.4.2"
+dotenvy = "0.15.7"
+eyre = "0.6.12"
+hex = "0.4.3"
+http-body-util = "0.1.2"
+rand = "0.8.5"
+serde = "1.0.204"
+serde_derive = "1.0.204"
+serde_json = "1.0.122"
+sqlx = { version = "0.8.0", features = ["runtime-tokio", "sqlite", "derive", "migrate"] }
+tokio = { version = "1.39.2", features = ["full"] }
+tokio-util = { version = "0.7.11", features = ["io"] }
+tower = "0.4.13"
+tower-http = { version = "0.5.2", features = ["cors", "fs", "limit"] }
