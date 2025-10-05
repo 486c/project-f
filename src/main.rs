@@ -6,7 +6,7 @@ use manager::Manager;
 use sqlx::SqlitePool;
 use tokio::{net::TcpListener, sync::Mutex};
 use eyre::Result;
-use tower_http::{cors::{Any, CorsLayer}, services::ServeDir};
+use tower_http::{cors::{Any, CorsLayer}, services::ServeDir, trace::{self, TraceLayer}};
 
 mod manager;
 mod routes;
@@ -26,10 +26,20 @@ async fn shutdown_signal() {
 async fn main() -> Result<()> {
   dotenv()?;
 
+  tracing_subscriber::fmt()
+      .with_max_level(tracing::Level::INFO)
+      .with_target(false)
+      .with_thread_names(true)
+      .init();
+
+  let port = 9999;
+
   let listener = {
-    let addr = SocketAddr::from(([127, 0, 0, 1], 9999));
+    let addr = SocketAddr::from(([127, 0, 0, 1], port));
     TcpListener::bind(addr).await?
   };
+
+  tracing::info!("Starting server at :{port}");
 
   let pool = SqlitePool::connect("sqlite:db.db").await?;
 
@@ -46,6 +56,11 @@ async fn main() -> Result<()> {
         .allow_methods(Any)
         .allow_origin(Any)
         .allow_headers([header::AUTHORIZATION, header::CONTENT_TYPE, header::CONTENT_RANGE])
+    )
+    .layer(
+        TraceLayer::new_for_http()
+            .on_request(trace::DefaultOnRequest::new().level(tracing::Level::INFO))
+            .on_response(trace::DefaultOnResponse::new().level(tracing::Level::INFO))
     )
     .fallback(error_404)
     .with_state(state);
